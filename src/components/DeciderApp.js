@@ -37,7 +37,7 @@ export default class DeciderApp extends React.Component {
         if(!option) {
             return 'Please enter a new option!';
         } else if(this.state.options.indexOf(option) > -1) {
-            return "You've arleady entered that one!";
+            return `You already entered ${option}`;
         } 
         this.setState((prevState) => ({options: prevState.options.concat(option)}));
     };
@@ -70,22 +70,31 @@ export default class DeciderApp extends React.Component {
         return(
             <div>
                 <Header subtitle={"Never think again!"}/>
-                <Options 
-                    options={this.state.options}
-                    handleDeleteOptions={this.handleDeleteOptions}
-                    handleDeleteOption={this.handleDeleteOption}
-                />
-                <AddOption 
-                    handleAddOption={this.handleAddOption}
-                />
-                <Action 
-                    hasOptions={this.state.options.length > 0}
-                    handlePick={this.handlePick}
-                />               
-                <OptionModal 
-                    selectedOption={this.state.selectedOption}
-                    closeOptionModal={this.closeOptionModal}
-                />
+                <div className="container">
+                    <Action 
+                        hasOptions={this.state.options.length > 0}
+                        handlePick={this.handlePick}
+                    />
+                    <div className="widget">
+                        <Options 
+                            options={this.state.options}
+                            handleDeleteOptions={this.handleDeleteOptions}
+                            handleDeleteOption={this.handleDeleteOption}
+                        />
+                        <AddOption 
+                            handleAddOption={this.handleAddOption}
+                        />
+                    </div>
+                    <div className="disclaimer">
+                        <p className="disclaimer__title">Legal Disclaimer</p>
+                        <p className="disclaimer__body">All decisions made by DeciderApp are legally binding and must be honored under law. 
+                        If you decide not to honor DeciderApp's decision, DeciderApp will look for you and DeciderApp will find you.</p>
+                    </div>               
+                    <OptionModal 
+                        selectedOption={this.state.selectedOption}
+                        closeOptionModal={this.closeOptionModal}
+                    />
+                </div>
             </div>
         );
     }
